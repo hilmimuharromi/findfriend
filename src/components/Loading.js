@@ -1,7 +1,6 @@
 import Lottie from "react-lottie";
 import animationData from "../assets/loading.json";
 
-
 const Loading = () => {
     const defaultOptions = {
         loop: true,
@@ -13,8 +12,8 @@ const Loading = () => {
       };
 
       return(
-          <div  className="card">
-              <Lottie options={defaultOptions} height={200} width={200} />
+          <div  className="card secondary">
+              <Lottie options={defaultOptions} height={150} width={150} />
           </div>
       )
 }
