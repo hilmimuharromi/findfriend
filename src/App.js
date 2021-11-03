@@ -6,31 +6,24 @@ import Logo from './assets/logo.png'
 function App() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
-  const [fetching, setFetching] = useState(false)
 
- 
+  const getUsers = async () => {
+    try {
+      setLoading(true)
+      const {data}= await axios.get('https://randomuser.me/api/?results=2')
+      setUsers(data.results)
+    } catch(e) {
+      console.log('error', e)
 
+    } finally {
+      setTimeout(function(){
+        setLoading(false)
+      }, 1000);
+    }
+  }
   useEffect(() => {
-    const getUsers = async () => {
-      try {
-        setLoading(true)
-        const {data}= await axios.get('https://randomuser.me/api/?results=2')
-        console.log('result', data)
-        setUsers(data.results)
-      } catch(e) {
-        console.log('error', e)
-  
-      } finally {
-        setFetching(false)
-        setTimeout(function(){
-          setLoading(false)
-        }, 1000);
-      }
-    }
-    if(fetching) {
-      getUsers()
-    }
-  },[fetching])
+    getUsers()
+  },[])
 
   return (
     <div className="App">
@@ -47,7 +40,7 @@ function App() {
           </>
         }
       </div>
-     <button disabled={loading} className="button primary mt-5" onClick={() => setFetching(true)}>Find</button>
+     <button disabled={loading} className="button primary mt-5" onClick={getUsers}>Find</button>
     </div>
   );
 }
